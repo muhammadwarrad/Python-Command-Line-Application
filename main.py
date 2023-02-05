@@ -32,3 +32,12 @@ def view_note(index):
         print(f'Content: {selected_note.content}')
     except IndexError:
         print('Invalid index.')
+
+def menu():
+    print('Welcome to Notes')
+    print('1. all notes')
+    print('2. View one note')
+    print('3. Create note')
+    print('4. Quit')
+    
+    choice = input('Enter your choice: ')
