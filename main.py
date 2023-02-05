@@ -1,23 +1,6 @@
 from peewee import *
 
-db = SqliteDatabase('notes.db')
-
-class Note(Model):
-    title = CharField()
-    content = TextField()
-    
-    class Meta:
-        database = db
-        
-def create_tables():
-    db.connect()
-    db.create_tables([Note], safe=True)
-
-def seed_data():
-    note1 = Note(title='Note 1', content='first note blah.')
-    note2 = Note(title='Note 2', content='fire noteee')
-    note1.save()
-    note2.save()
+from   model  import *
 
 def list_notes():
     notes = Note.select()
@@ -33,6 +16,11 @@ def view_note(index):
     except IndexError:
         print('Invalid index.')
 
+def create_note(title, content):
+    new_note = Note(title=title, content=content)
+    new_note.save()
+    print(f'Note "{title}" created successfully.')
+
 def menu():
     print('Welcome to Notes')
     print('1. all notes')
@@ -41,3 +29,21 @@ def menu():
     print('4. Quit')
     
     choice = input('Enter your choice: ')
+
+    if choice == '1':
+        list_notes()
+    elif choice == '2':
+        index = int(input('Enter note index: '))
+        view_note(index)
+    elif choice == '3':
+        title = input('Enter note title: ')
+        content = input('Enter note content: ')
+        create_note(title, content)
+    elif choice == '4':
+        print('bye')
+        exit()
+    
+    else:
+        print('Error')
+
+menu()
