@@ -18,3 +18,17 @@ def seed_data():
     note2 = Note(title='Note 2', content='fire noteee')
     note1.save()
     note2.save()
+
+def list_notes():
+    notes = Note.select()
+    for i, note in enumerate(notes):
+        print(f'{i+1}. {note.title}')
+        
+def view_note(index):
+    notes = Note.select()
+    try:
+        selected_note = notes[index - 1]
+        print(f'Title: {selected_note.title}')
+        print(f'Content: {selected_note.content}')
+    except IndexError:
+        print('Invalid index.')
